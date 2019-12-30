@@ -22,7 +22,8 @@ public class PmsBaseServiceImpl implements PmsBaseService {
     PmsBaseAttrInfoMapper pmsBaseAttrInfoMapper;
     @Autowired
     PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
-
+    @Autowired
+    PmsBaseSaleAttrMapper pmsBaseSaleAttrMapper;
     //查询一级分类列表
     @Override
     public List<PmsBaseCatalog1> getCatalog1() {
@@ -53,7 +54,13 @@ public class PmsBaseServiceImpl implements PmsBaseService {
         PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
         List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
-
+        //将属性值设置进去
+        for (PmsBaseAttrInfo baseAttrInfo : pmsBaseAttrInfos) {
+            PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
+            pmsBaseAttrValue.setAttrId(baseAttrInfo.getId());
+            List<PmsBaseAttrValue> select = pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
+            baseAttrInfo.setAttrValueList(select);
+        }
         return pmsBaseAttrInfos;
     }
 
@@ -104,5 +111,11 @@ public class PmsBaseServiceImpl implements PmsBaseService {
         PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
         pmsBaseAttrValue.setAttrId(attrId);
         pmsBaseAttrValueMapper.delete(pmsBaseAttrValue);
+    }
+
+    @Override
+    public List<PmsBaseSaleAttr> getBaseSaleAttrList() {
+        List<PmsBaseSaleAttr> pmsBaseSaleAttrs = pmsBaseSaleAttrMapper.selectAll();
+        return pmsBaseSaleAttrs;
     }
 }

@@ -20,4 +20,6 @@ public interface PmsBaseService {
     void updatePmsBaseAttr(PmsBaseAttrInfo pmsBaseAttrInfo);
 
     void deletePmsBaseAttr(String attrId);
+
+    List<PmsBaseSaleAttr> getBaseSaleAttrList();
 }

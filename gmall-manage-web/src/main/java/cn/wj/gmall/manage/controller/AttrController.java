@@ -21,47 +21,50 @@ public class AttrController {
 
     @RequestMapping("getCatalog1")
     @ResponseBody
-    public List<PmsBaseCatalog1> getCatalog1(){
+    public List<PmsBaseCatalog1> getCatalog1() {
         List<PmsBaseCatalog1> list = pmsBaseService.getCatalog1();
         return list;
     }
 
     @RequestMapping("getCatalog2")
     @ResponseBody
-    public List<PmsBaseCatalog2> getCatalog2(String catalog1Id){
+    public List<PmsBaseCatalog2> getCatalog2(String catalog1Id) {
         List<PmsBaseCatalog2> list = pmsBaseService.getCatalog2(catalog1Id);
         return list;
     }
 
     @RequestMapping("getCatalog3")
     @ResponseBody
-    public List<PmsBaseCatalog3> getCatalog3(String catalog2Id){
+    public List<PmsBaseCatalog3> getCatalog3(String catalog2Id) {
         List<PmsBaseCatalog3> list = pmsBaseService.getCatalog3(catalog2Id);
         return list;
     }
+
     //查询平台属性列表
     @RequestMapping("attrInfoList")
     @ResponseBody
-    public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id){
+    public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id) {
         List<PmsBaseAttrInfo> list = pmsBaseService.getAttrInfoList(catalog3Id);
         return list;
     }
+
     //根据平台属性id查询平台属性值列表
     @RequestMapping("getAttrValueList")
     @ResponseBody
-    public List<PmsBaseAttrValue> getAttrValueList(String attrId){
+    public List<PmsBaseAttrValue> getAttrValueList(String attrId) {
         List<PmsBaseAttrValue> list = pmsBaseService.getAttrValueList(attrId);
         return list;
     }
+
     @RequestMapping("saveAttrInfo")
     @ResponseBody
-    public String saveAttrInfo(@RequestBody PmsBaseAttrInfo pmsBaseAttrInfo){
+    public String saveAttrInfo(@RequestBody PmsBaseAttrInfo pmsBaseAttrInfo) {
 
         String id = pmsBaseAttrInfo.getId();
-        if(StringUtils.isNotBlank(id)){
+        if (StringUtils.isNotBlank(id)) {
             //属性id不为空修改
             pmsBaseService.updatePmsBaseAttr(pmsBaseAttrInfo);
-        }else{
+        } else {
             //属性id为空时 是执行的添加操作
             pmsBaseService.addPmsBaseAttr(pmsBaseAttrInfo);
 
@@ -69,6 +72,12 @@ public class AttrController {
 
         return "success";
     }
-
+    //销售属性列表
+    @RequestMapping("baseSaleAttrList")
+    @ResponseBody
+    public List<PmsBaseSaleAttr> baseSaleAttrList() {
+        List<PmsBaseSaleAttr> pmsBaseSaleAttrs = pmsBaseService.getBaseSaleAttrList();
+        return pmsBaseSaleAttrs;
+    }
 
 }

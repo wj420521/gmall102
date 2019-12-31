@@ -51,4 +51,36 @@ public class SkuServiceImpl implements SkuService {
         }
         return "success";
     }
+
+    @Override
+    public PmsSkuInfo getSkuInfo(String skuId) {
+        PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
+        pmsSkuInfo.setId(skuId);
+        //查询sku信息
+        PmsSkuInfo pmsSkuInfo1 = skuInfoMapper.selectOne(pmsSkuInfo);
+        //查询当前skuId的图片集合
+        PmsSkuImage pmsSkuImage = new PmsSkuImage();
+        pmsSkuImage.setSkuId(skuId);
+        List<PmsSkuImage> pmsSkuImages = skuImageMapper.select(pmsSkuImage);
+        //查询属性值
+        PmsSkuAttrValue pmsSkuAttrValue = new PmsSkuAttrValue();
+        pmsSkuAttrValue.setSkuId(skuId);
+        List<PmsSkuAttrValue> pmsSkuAttrValues = skuAttrValueMapper.select(pmsSkuAttrValue);
+        //查询销售属性
+        PmsSkuSaleAttrValue pmsSkuSaleAttrValue = new PmsSkuSaleAttrValue();
+        pmsSkuSaleAttrValue.setSkuId(skuId);
+        List<PmsSkuSaleAttrValue> pmsSkuSaleAttrValues = skuSaleAttrValueMapper.select(pmsSkuSaleAttrValue);
+
+        pmsSkuInfo1.setSkuImageList(pmsSkuImages);
+        pmsSkuInfo1.setSkuAttrValueList(pmsSkuAttrValues);
+        pmsSkuInfo1.setSkuSaleAttrValueList(pmsSkuSaleAttrValues);
+
+        return pmsSkuInfo1;
+    }
+
+    @Override
+    public List<PmsSkuInfo> getSkuSaleAttrValueAndSkuIdBySpuId(String productId) {
+        List<PmsSkuInfo> skuInfos = skuInfoMapper.selectSkuSaleAttrValueAndSkuIdBySpuId(productId);
+        return skuInfos;
+    }
 }

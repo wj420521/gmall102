@@ -7,7 +7,9 @@ import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PmsBaseServiceImpl implements PmsBaseService {
@@ -118,4 +120,27 @@ public class PmsBaseServiceImpl implements PmsBaseService {
         List<PmsBaseSaleAttr> pmsBaseSaleAttrs = pmsBaseSaleAttrMapper.selectAll();
         return pmsBaseSaleAttrs;
     }
+    //搜索页面  valueId集合查询平台属性列表
+    @Override
+    public List<PmsBaseAttrInfo> getAttrList(Set<String> valueIdSet) {
+      //将set转为数组
+       String[] valueIds =  valueIdSet.toArray(new String[valueIdSet.size()]);
+       String valueIdsStr="";
+        for (String valueId : valueIds) {
+            valueIdsStr+=valueId+",";
+        }
+        valueIdsStr = valueIdsStr.substring(0,valueIdsStr.lastIndexOf(","));
+        List<PmsBaseAttrInfo> baseAttrInfos = pmsBaseAttrInfoMapper.selectAttrList(valueIdsStr);
+        return baseAttrInfos;
+    }
+    //更具属性值id 查询属性名
+    @Override
+    public PmsBaseAttrValue getValueNameByValueId(String id) {
+        PmsBaseAttrValue p = new PmsBaseAttrValue();
+        p.setId(id);
+        PmsBaseAttrValue pmsBaseAttrValue = pmsBaseAttrValueMapper.selectOne(p);
+        return pmsBaseAttrValue;
+    }
+
+
 }

@@ -3,6 +3,7 @@ package cn.wj.gmall.item.controller;
 import cn.wj.gmall.bean.PmsProductSaleAttr;
 import cn.wj.gmall.bean.PmsSkuInfo;
 import cn.wj.gmall.bean.PmsSkuSaleAttrValue;
+import cn.wj.gmall.service.SearchService;
 import cn.wj.gmall.service.SkuService;
 import cn.wj.gmall.service.SpuService;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -24,9 +25,13 @@ public class ItemController {
     SkuService skuService;
     @Reference
     SpuService spuService;
-
+    @Reference
+    SearchService searchService;
     @RequestMapping("/{skuId}.html")
     public String getSkuInfo(@PathVariable("skuId")String skuId, ModelMap map, HttpServletRequest request,String valueIds){
+
+        //计算热度值
+        searchService.hotScoreCount(skuId);
 
         PmsSkuInfo pmsSkuInfo = skuService.getSkuInfo(skuId);
         String productId = pmsSkuInfo.getProductId();

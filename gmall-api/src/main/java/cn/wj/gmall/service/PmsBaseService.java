@@ -3,6 +3,7 @@ package cn.wj.gmall.service;
 import cn.wj.gmall.bean.*;
 
 import java.util.List;
+import java.util.Set;
 
 public interface PmsBaseService {
     List<PmsBaseCatalog1> getCatalog1();
@@ -22,4 +23,8 @@ public interface PmsBaseService {
     void deletePmsBaseAttr(String attrId);
 
     List<PmsBaseSaleAttr> getBaseSaleAttrList();
+
+    List<PmsBaseAttrInfo> getAttrList(Set<String> skuIdSet);
+
+    PmsBaseAttrValue getValueNameByValueId(String id);
 }

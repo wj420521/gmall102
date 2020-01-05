@@ -39,6 +39,11 @@ public class PmsSkuInfo implements Serializable {
     @Column
     String skuDefaultImg;
 
+    @Column
+    //热度值
+    Double hotScore;
+
+
     @Transient
     List<PmsSkuImage> skuImageList;
 
@@ -144,5 +149,12 @@ public class PmsSkuInfo implements Serializable {
 
     public void setSpuId(String spuId) {
         this.spuId = spuId;
+    }
+    public Double getHotScore() {
+        return hotScore;
+    }
+
+    public void setHotScore(Double hotScore) {
+        this.hotScore = hotScore;
     }
 }

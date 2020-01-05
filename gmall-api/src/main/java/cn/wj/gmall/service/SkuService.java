@@ -10,4 +10,6 @@ public interface SkuService {
     PmsSkuInfo getSkuInfo(String skuId);
 
     List<PmsSkuInfo> getSkuSaleAttrValueAndSkuIdBySpuId(String productId);
+    //查询所有的skuInfo
+    List<PmsSkuInfo> getAllSkuInfo();
 }

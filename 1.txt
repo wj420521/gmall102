@@ -4,3 +4,14 @@ vvvvvvvvvvvvvvvvvf'
 fdgdfgdf
 gb
 'gh
+hlindlanda
+dadjnlansdnasf
+af
+console.log()aspdja
+new Date().getHours()
+alofnsldfla
+asflmfasdf
+fsf
+public void String main(args []){
+System.out.print('jajjaa")
+}
